@@ -57,6 +57,11 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	public SubmitResultVO submitZoom(Task task, String targetMessageId, String targetMessageHash, int index, int messageFlags) {
+		return this.taskQueueHelper.submitTask(task, () -> this.discordService.zoom(targetMessageId, targetMessageHash, messageFlags));
+	}
+
+	@Override
 	public SubmitResultVO submitDescribe(Task task, DataUrl dataUrl) {
 		return this.taskQueueHelper.submitTask(task, () -> {
 			String taskFileName = task.getId() + "." + MimeTypeUtils.guessFileSuffix(dataUrl.getMimeType());

@@ -46,6 +46,9 @@ public class Task implements Serializable {
 	private String failReason;
 
 	// 任务扩展属性，仅支持基本类型
+	/**
+	 * 坑！json序列化可能会被忽略 {@link TaskMixin}
+	 */
 	private Map<String, Object> properties;
 
 	@JsonIgnore

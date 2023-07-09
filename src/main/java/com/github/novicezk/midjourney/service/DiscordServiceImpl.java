@@ -41,6 +41,7 @@ public class DiscordServiceImpl implements DiscordService {
 	private String imagineParamsJson;
 	private String upscaleParamsJson;
 	private String variationParamsJson;
+	private String zoomParamsJson;
 	private String rerollParamsJson;
 	private String describeParamsJson;
 	private String blendParamsJson;
@@ -68,6 +69,7 @@ public class DiscordServiceImpl implements DiscordService {
 		this.imagineParamsJson = ResourceUtil.readUtf8Str("api-params/imagine.json");
 		this.upscaleParamsJson = ResourceUtil.readUtf8Str("api-params/upscale.json");
 		this.variationParamsJson = ResourceUtil.readUtf8Str("api-params/variation.json");
+		this.zoomParamsJson = ResourceUtil.readUtf8Str("api-params/zoom.json");
 		this.rerollParamsJson = ResourceUtil.readUtf8Str("api-params/reroll.json");
 		this.describeParamsJson = ResourceUtil.readUtf8Str("api-params/describe.json");
 		this.blendParamsJson = ResourceUtil.readUtf8Str("api-params/blend.json");
@@ -104,6 +106,17 @@ public class DiscordServiceImpl implements DiscordService {
 				.replace("$session_id", this.discordSessionId)
 				.replace("$message_id", messageId)
 				.replace("$index", String.valueOf(index))
+				.replace("$message_hash", messageHash);
+		paramsStr = new JSONObject(paramsStr).put("message_flags", messageFlags).toString();
+		return postJsonAndCheckStatus(paramsStr);
+	}
+
+	@Override
+	public Message<Void> zoom(String messageId, String messageHash, int messageFlags) {
+		String paramsStr = this.zoomParamsJson.replace("$guild_id", this.discordGuildId)
+				.replace("$channel_id", this.discordChannelId)
+				.replace("$session_id", this.discordSessionId)
+				.replace("$message_id", messageId)
 				.replace("$message_hash", messageHash);
 		paramsStr = new JSONObject(paramsStr).put("message_flags", messageFlags).toString();
 		return postJsonAndCheckStatus(paramsStr);

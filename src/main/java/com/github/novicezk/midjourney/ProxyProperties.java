@@ -54,7 +54,7 @@ public class ProxyProperties {
 	/**
 	 * 接口是否返回任务扩展属性.
 	 */
-	private boolean includeTaskExtended = false;
+	private boolean includeTaskExtended = true;
 
 	@Data
 	public static class DiscordConfig {
