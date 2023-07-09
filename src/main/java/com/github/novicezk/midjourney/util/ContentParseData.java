@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ContentParseData {
 	protected String prompt;
-	protected String status;
+	protected String status; // 进度
 }

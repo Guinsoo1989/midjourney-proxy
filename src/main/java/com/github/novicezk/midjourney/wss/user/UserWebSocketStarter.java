@@ -91,6 +91,7 @@ public class UserWebSocketStarter extends WebSocketAdapter implements WebSocketS
 		int opCode = data.getInt("op");
 		if (opCode != WebSocketCode.HEARTBEAT_ACK) {
 			this.sequence.incrementAndGet();
+			log.debug("收到msg：{}", json);
 		}
 		if (opCode == WebSocketCode.HELLO) {
 			if (this.heartbeatTask == null && this.heartExecutor != null) {
