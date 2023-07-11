@@ -91,7 +91,6 @@ public class UserWebSocketStarter extends WebSocketAdapter implements WebSocketS
 		int opCode = data.getInt("op");
 		if (opCode != WebSocketCode.HEARTBEAT_ACK) {
 			this.sequence.incrementAndGet();
-			log.debug("收到msg：{}", json);
 		}
 		if (opCode == WebSocketCode.HELLO) {
 			if (this.heartbeatTask == null && this.heartExecutor != null) {
@@ -213,7 +212,11 @@ public class UserWebSocketStarter extends WebSocketAdapter implements WebSocketS
 			this.sessionId = content.getString("session_id");
 			return;
 		}
+		if ("PASSIVE_UPDATE_V1".equals(t)) {
+			return;
+		}
 		try {
+			log.debug("处理消息：{}", raw.toString());
 			this.userMessageListener.onMessage(raw);
 		} catch (Exception e) {
 			log.error("user-wss handle message error", e);
