@@ -75,7 +75,7 @@ public class ProxyProperties {
 		 */
 		private String userToken;
 		/**
-		 * 你的频道id.
+		 * 你的session id.
 		 */
 		private String sessionId = "9c4055428e13bcbf2248a6b36084c5f3";
 		/**

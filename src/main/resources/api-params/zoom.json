@@ -8,6 +8,6 @@
   "session_id": "$session_id",
   "data": {
     "component_type": 2,
-    "custom_id": "MJ::Outpaint::75::1::$message_hash::SOLO"
+    "custom_id": "MJ::Outpaint::$zoom_arg::1::$message_hash::SOLO"
   }
 }

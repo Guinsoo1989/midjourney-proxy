@@ -111,6 +111,8 @@ public class SubmitController {
         String description = "/up " + changeDTO.getTaskId();
         if (TaskAction.REROLL.equals(changeDTO.getAction())) {
             description += " R";
+        } else if (TaskAction.ZOOM.equals(changeDTO.getAction())){
+            description += " " + changeDTO.getAction().name().charAt(0) + changeDTO.getZoomArg();
         } else {
             description += " " + changeDTO.getAction().name().charAt(0) + changeDTO.getIndex();
         }
@@ -145,7 +147,7 @@ public class SubmitController {
         } else if (TaskAction.VARIATION.equals(changeDTO.getAction())) {
             return this.taskService.submitVariation(task, messageId, messageHash, changeDTO.getIndex(), messageFlags);
         } else if (TaskAction.ZOOM.equals(changeDTO.getAction())) {
-            return this.taskService.submitZoom(task, messageId, messageHash, changeDTO.getIndex(), messageFlags);
+            return this.taskService.submitZoom(task, messageId, messageHash, changeDTO.getZoomArg(), messageFlags);
         } else {
             return SubmitResultVO.fail(ReturnCode.VALIDATION_ERROR, "不支持的操作: " + changeDTO.getAction());
         }

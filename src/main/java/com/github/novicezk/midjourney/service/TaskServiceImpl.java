@@ -57,8 +57,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public SubmitResultVO submitZoom(Task task, String targetMessageId, String targetMessageHash, int index, int messageFlags) {
-		return this.taskQueueHelper.submitTask(task, () -> this.discordService.zoom(targetMessageId, targetMessageHash, messageFlags));
+	public SubmitResultVO submitZoom(Task task, String targetMessageId, String targetMessageHash, String zoomArg, int messageFlags) {
+		return this.taskQueueHelper.submitTask(task, () -> this.discordService.zoom(targetMessageId, zoomArg, targetMessageHash,  messageFlags));
 	}
 
 	@Override

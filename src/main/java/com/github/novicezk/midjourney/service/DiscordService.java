@@ -15,7 +15,7 @@ public interface DiscordService {
 
 	Message<Void> variation(String messageId, int index, String messageHash, int messageFlags);
 
-	Message<Void> zoom(String messageId, String messageHash, int messageFlags);
+	Message<Void> zoom(String messageId, String zoomArg, String messageHash, int messageFlags);
 
 	Message<Void> reroll(String messageId, String messageHash, int messageFlags);
 

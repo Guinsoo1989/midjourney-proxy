@@ -108,11 +108,12 @@ public class DiscordServiceImpl implements DiscordService {
     }
 
     @Override
-    public Message<Void> zoom(String messageId, String messageHash, int messageFlags) {
+    public Message<Void> zoom(String messageId, String zoomArg, String messageHash, int messageFlags) {
         String paramsStr = this.zoomParamsJson.replace("$guild_id", this.discordGuildId)
                 .replace("$channel_id", this.discordChannelId)
                 .replace("$session_id", this.discordSessionId)
                 .replace("$message_id", messageId)
+                .replace("$zoom_arg", zoomArg)
                 .replace("$message_hash", messageHash);
         paramsStr = new JSONObject(paramsStr).put("message_flags", messageFlags).toString();
         return postJsonAndCheckStatus(paramsStr);

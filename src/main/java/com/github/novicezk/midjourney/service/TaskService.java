@@ -15,7 +15,7 @@ public interface TaskService {
 
 	SubmitResultVO submitVariation(Task task, String targetMessageId, String targetMessageHash, int index, int messageFlags);
 
-	SubmitResultVO submitZoom(Task task, String targetMessageId, String targetMessageHash, int index, int messageFlags);
+	SubmitResultVO submitZoom(Task task, String targetMessageId, String targetMessageHash, String zoomArg, int messageFlags);
 
 
 	SubmitResultVO submitDescribe(Task task, DataUrl dataUrl);

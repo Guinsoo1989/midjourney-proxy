@@ -22,4 +22,6 @@ public class SubmitChangeDTO extends BaseSubmitDTO {
 	@ApiModelProperty(value = "序号(1~4), action为UPSCALE,VARIATION时必传", allowableValues = "range[1, 4]", example = "1")
 	private Integer index;
 
+	// 50 or 75
+	private String zoomArg = "75";
 }

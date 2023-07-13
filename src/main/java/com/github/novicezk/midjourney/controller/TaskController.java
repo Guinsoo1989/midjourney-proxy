@@ -1,6 +1,9 @@
 package com.github.novicezk.midjourney.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.comparator.CompareUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.novicezk.midjourney.dto.TaskConditionDTO;
@@ -26,9 +29,13 @@ public class TaskController {
     @ApiOperation(value = "查询所有任务")
     @GetMapping("/list")
     public List<Task> list() {
-        return this.taskStoreService.list().stream()
+        List<Task> list = this.taskStoreService.list().stream()
                 .sorted((t1, t2) -> CompareUtil.compare(t2.getSubmitTime(), t1.getSubmitTime()))
                 .toList();
+        // 存于本地
+        // TODO: 2023/7/12 生产环境不该存储
+        FileUtil.writeUtf8String(JSONUtil.toJsonStr(list), "../../tasks.json");
+        return list;
     }
 
     @ApiOperation(value = "指定ID获取任务")
@@ -66,6 +73,14 @@ public class TaskController {
     @ApiOperation(value = "保存任务")
     @PostMapping("/saveList")
     public boolean saveList(@RequestBody List<Task> taskList) {
+        if (CollUtil.isEmpty(taskList)) {
+            String jsonStr = FileUtil.readUtf8String("../../tasks.json");
+            List<Task> tasks = JSONUtil.toList(jsonStr, Task.class);
+            for (Task task : tasks) {
+                this.taskStoreService.save(task);
+            }
+            return true;
+        }
         for (Task task : taskList) {
             this.taskStoreService.save(task);
         }
